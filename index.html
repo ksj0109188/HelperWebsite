@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper - 혁신적인 모바일 솔루션</title>
+    <meta name="description" content="Helper는 AI 기반 접근성 솔루션과 모바일 앱 개발을 전문으로 하는 기술 회사입니다.">
+    <meta name="keywords" content="iOS 개발, AI 솔루션, 접근성, 모바일 앱, SwiftUI, Helper">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .projects {
+            background: #f8f9fa;
+        }
+        
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .project-title {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .contact {
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .header-content {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Helper</a>
+                <nav>
+                    <ul>
+                        <li><a href="#about">회사소개</a></li>
+                        <li><a href="#services">서비스</a></li>
+                        <li><a href="#projects">프로젝트</a></li>
+                        <li><a href="#contact">연락처</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>혁신적인 모바일 솔루션</h1>
+            <p>AI 기술을 활용한 접근성 서비스와 사용자 중심의 모바일 앱 개발을 통해<br>더 나은 디지털 경험을 제공합니다</p>
+            <a href="#contact" class="cta-button">프로젝트 문의하기</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Helper 소개</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>기술로 일상을 더 편리하게</h3>
+                    <p>Helper는 AI 기반 서비스와 모바일 개발 전문 회사입니다. 특히 접근성 향상을 통해 모든 사용자가 기술의 혜택을 누릴 수 있도록 하는 것이 우리의 목표입니다.</p>
+                    
+                    <h4>대표자: 김성준</h4>
+                    <p style="margin-top: 1rem;">iOS 전문 개발자로서 사용자 중심의 혁신적인 모바일 솔루션을 개발하고 있습니다. 특히 AI 기술을 활용한 접근성 서비스 개발에 열정을 가지고 있으며, 기술을 통해 더 나은 세상을 만들어가는 것이 목표입니다.</p>
+                </div>
+                <div class="about-image">
+                    <h3>핵심 가치</h3>
+                    <p>🎯 사용자 중심 설계<br>
+                    🔧 기술 혁신<br>
+                    ♿ 접근성 향상<br>
+                    🚀 지속적인 개선</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">주요 서비스</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>iOS 앱 개발</h3>
+                    <p>Swift, SwiftUI, UIKit을 활용한 네이티브 iOS 애플리케이션 개발. 사용자 경험을 최우선으로 하는 직관적이고 성능 최적화된 앱을 제작합니다.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>AI 통합 솔루션</h3>
+                    <p>인공지능 기술을 모바일 애플리케이션에 통합하여 스마트한 사용자 경험을 제공합니다. 음성 인식, 이미지 처리 등 다양한 AI 기능을 구현합니다.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">♿</div>
+                    <h3>접근성 서비스</h3>
+                    <p>시각장애인과 같은 특수 사용자를 위한 접근성 향상 서비스를 개발합니다. 모든 사용자가 기술의 혜택을 누릴 수 있도록 지원합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">주요 프로젝트</h2>
+            
+            <div class="project-card">
+                <h3 class="project-title">🔍 LuminaView</h3>
+                <p>시각장애인을 위한 AI 기반 음성 안내 서비스입니다. 실시간 객체 인식과 텍스트 인식 기능을 통해 시각장애인의 일상생활을 돕는 혁신적인 접근성 솔루션입니다.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Swift</span>
+                    <span class="tech-tag">Core ML</span>
+                    <span class="tech-tag">Vision Framework</span>
+                    <span class="tech-tag">AVFoundation</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3 class="project-title">💬 오테톡 (Ototalk)</h3>
+                <p>실제 외주 프로젝트로 진행된 커뮤니케이션 앱입니다. 사용자 친화적인 인터페이스와 실시간 메시징 기능을 구현하여 원활한 소통을 지원하는 모바일 메신저 애플리케이션입니다.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Swift</span>
+                    <span class="tech-tag">UIKit</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Real-time DB</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3 class="project-title">💼 무선/유선 과금 시스템</h3>
+                <p>세종텔레콤에서 개발한 통신 과금 처리 시스템입니다. 고객 정보 조회 성능을 개선하고 이름 변경 처리 자동화를 구현하여 업무 효율성을 크게 향상시켰습니다.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">Spring</span>
+                    <span class="tech-tag">Oracle</span>
+                    <span class="tech-tag">RESTful API</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">연락처</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">프로젝트 문의나 협업 제안을 환영합니다!</p>
+            
+            <div class="contact-info">
+                <div>
+                    <h3>📧 이메일</h3>
+                    <p>tjdwns6481@naver.com</p>
+                </div>
+                <div>
+                    <h3>🌐 블로그</h3>
+                    <p><a href="https://jjunbbang.tistory.com" style="color: #667eea;">jjunbbang.tistory.com</a></p>
+                </div>
+                <div>
+                    <h3>💻 GitHub</h3>
+                    <p><a href="https://github.com/ksj0109188" style="color: #667eea;">github.com/ksj0109188</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Helper. All rights reserved.</p>
+            <p>혁신적인 모바일 솔루션으로 더 나은 세상을 만들어갑니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
