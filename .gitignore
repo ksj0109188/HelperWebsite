@@ -1,0 +1,22 @@
+# 민감한 개인정보 파일들
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.doc
+*.docx
+*이력서*
+*사업자등록*
+*개인정보*
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+
+# IDE 설정
+.vscode/
+.idea/
+
+# 임시 파일
+*.tmp
+*.temp
