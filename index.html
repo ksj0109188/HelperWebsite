@@ -6,7 +6,22 @@
     <title>Helper - 혁신적인 모바일 솔루션</title>
     <meta name="description" content="Helper는 AI 기반 접근성 솔루션과 모바일 앱 개발을 전문으로 하는 기술 회사입니다.">
     <meta name="keywords" content="iOS 개발, AI 솔루션, 접근성, 모바일 앱, SwiftUI, Helper">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --spotify-green: #1db954;
+            --spotify-dark: #191414;
+            --spotify-darker: #121212;
+            --spotify-light: #1a1a1a;
+            --spotify-gray: #535353;
+            --spotify-white: #ffffff;
+            --spotify-text: #b3b3b3;
+            --spotify-accent: #1ed760;
+            --gradient-1: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+            --gradient-2: linear-gradient(135deg, #191414 0%, #1a1a1a 100%);
+            --gradient-hero: linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(25, 20, 20, 0.95) 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,229 +29,654 @@
         }
         
         body {
-            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--spotify-text);
+            background-color: var(--spotify-darker);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--spotify-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--spotify-gray);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--spotify-green);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
-        
+
+        /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            width: 100%;
+            background: rgba(25, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-bottom: 1px solid rgba(29, 185, 84, 0.1);
+        }
+
+        header.scrolled {
+            background: rgba(25, 20, 20, 0.98);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
+            position: relative;
         }
         
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--spotify-white);
             text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--spotify-green);
+            transform: scale(1.05);
         }
         
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 40px;
+            align-items: center;
         }
         
         nav a {
-            color: white;
+            color: var(--spotify-text);
             text-decoration: none;
             font-weight: 500;
-            transition: opacity 0.3s;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--spotify-green);
+            transition: width 0.3s ease;
         }
         
         nav a:hover {
-            opacity: 0.8;
+            color: var(--spotify-white);
         }
-        
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--spotify-white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
+            background: var(--spotify-dark);
+            padding: 140px 0 100px;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-hero);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 800;
+            color: var(--spotify-white);
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero-text .highlight {
+            color: var(--spotify-green);
+            position: relative;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: var(--spotify-text);
+            margin-bottom: 40px;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: var(--spotify-green);
+            color: var(--spotify-dark);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 24px rgba(29, 185, 84, 0.3);
         }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+
+        .cta-primary:hover {
+            background: var(--spotify-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(29, 185, 84, 0.4);
         }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 1rem 2rem;
+
+        .cta-secondary {
+            border: 2px solid var(--spotify-white);
+            color: var(--spotify-white);
+            padding: 14px 32px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
+
+        .cta-secondary:hover {
+            background: var(--spotify-white);
+            color: var(--spotify-dark);
         }
-        
-        .section {
-            padding: 4rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-        
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            margin-top: 2rem;
         }
-        
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+
+        .hero-card {
+            background: var(--spotify-light);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(29, 185, 84, 0.2);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .about-image {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            padding: 2rem;
-            color: white;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-card h3 {
+            color: var(--spotify-green);
+            font-size: 18px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .stat-item {
             text-align: center;
         }
-        
-        .projects {
-            background: #f8f9fa;
+
+        .stat-number {
+            color: var(--spotify-white);
+            font-size: 24px;
+            font-weight: 700;
+            display: block;
         }
-        
+
+        .stat-label {
+            color: var(--spotify-text);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: var(--spotify-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 800;
+            color: var(--spotify-white);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--spotify-text);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--spotify-light);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(29, 185, 84, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(29, 185, 84, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--spotify-white);
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            color: var(--spotify-text);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 40px;
+        }
+
         .project-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            background: var(--spotify-light);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid rgba(29, 185, 84, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
         }
-        
+
+        .project-card:hover {
+            transform: scale(1.02);
+            border-color: rgba(29, 185, 84, 0.3);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
         .project-title {
-            color: #667eea;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--spotify-white);
+            margin: 0;
         }
-        
+
+        .project-description {
+            color: var(--spotify-text);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 12px;
         }
-        
+
         .tech-tag {
-            background: #667eea;
-            color: white;
-            padding: 0.3rem 0.8rem;
+            background: rgba(29, 185, 84, 0.1);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            color: var(--spotify-green);
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        
-        .contact {
-            background: #333;
-            color: white;
+
+        .tech-tag:hover {
+            background: var(--spotify-green);
+            color: var(--spotify-dark);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--spotify-white);
+            margin-bottom: 24px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            color: var(--spotify-text);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .about-visual {
+            background: var(--spotify-light);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid rgba(29, 185, 84, 0.2);
             text-align: center;
         }
-        
+
+        .about-visual h4 {
+            color: var(--spotify-green);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .value-item {
+            padding: 20px;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(29, 185, 84, 0.2);
+        }
+
+        .value-item span {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .value-item p {
+            color: var(--spotify-text);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--spotify-dark);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 40px;
+            margin-top: 60px;
         }
-        
+
+        .contact-item {
+            background: var(--spotify-light);
+            padding: 40px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(29, 185, 84, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(29, 185, 84, 0.3);
+        }
+
+        .contact-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--spotify-white);
+            margin-bottom: 16px;
+        }
+
+        .contact-item a {
+            color: var(--spotify-green);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--spotify-accent);
+        }
+
+        /* Footer */
         footer {
-            background: #222;
-            color: white;
+            background: var(--spotify-darker);
+            color: var(--spotify-text);
             text-align: center;
-            padding: 2rem 0;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(29, 185, 84, 0.1);
         }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .about-grid {
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 60px;
+                text-align: center;
             }
-            
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
             nav ul {
                 display: none;
             }
-            
-            .header-content {
-                justify-content: center;
+
+            .mobile-menu-btn {
+                display: block;
             }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card, .project-card {
+                padding: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Gradient Background Animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-bg {
+            background: linear-gradient(-45deg, #1db954, #1ed760, #191414, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">Helper</a>
@@ -248,35 +688,83 @@
                         <li><a href="#contact">연락처</a></li>
                     </ul>
                 </nav>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>혁신적인 모바일 솔루션</h1>
-            <p>AI 기술을 활용한 접근성 서비스와 사용자 중심의 모바일 앱 개발을 통해<br>더 나은 디지털 경험을 제공합니다</p>
-            <a href="#contact" class="cta-button">프로젝트 문의하기</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>혁신적인 <span class="highlight">모바일 솔루션</span></h1>
+                    <p>AI 기술을 활용한 접근성 서비스와 사용자 중심의 모바일 앱 개발을 통해 더 나은 디지털 경험을 제공합니다</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="cta-primary">프로젝트 시작하기</a>
+                        <a href="#projects" class="cta-secondary">포트폴리오 보기</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <h3>📊 프로젝트 현황</h3>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">10+</span>
+                                <span class="stat-label">완료 프로젝트</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">년 경험</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">고객 만족도</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">지원 서비스</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">Helper 소개</h2>
-            <div class="about-grid">
+            <div class="section-header">
+                <h2 class="section-title">Helper 소개</h2>
+                <p class="section-subtitle">기술로 일상을 더 편리하게 만드는 것이 우리의 사명입니다</p>
+            </div>
+            <div class="about-content">
                 <div class="about-text">
                     <h3>기술로 일상을 더 편리하게</h3>
                     <p>Helper는 AI 기반 서비스와 모바일 개발 전문 회사입니다. 특히 접근성 향상을 통해 모든 사용자가 기술의 혜택을 누릴 수 있도록 하는 것이 우리의 목표입니다.</p>
                     
                     <h4>대표자: 김성준</h4>
-                    <p style="margin-top: 1rem;">iOS 전문 개발자로서 사용자 중심의 혁신적인 모바일 솔루션을 개발하고 있습니다. 특히 AI 기술을 활용한 접근성 서비스 개발에 열정을 가지고 있으며, 기술을 통해 더 나은 세상을 만들어가는 것이 목표입니다.</p>
+                    <p>iOS 전문 개발자로서 사용자 중심의 혁신적인 모바일 솔루션을 개발하고 있습니다. 특히 AI 기술을 활용한 접근성 서비스 개발에 열정을 가지고 있으며, 기술을 통해 더 나은 세상을 만들어가는 것이 목표입니다.</p>
                 </div>
-                <div class="about-image">
-                    <h3>핵심 가치</h3>
-                    <p>🎯 사용자 중심 설계<br>
-                    🔧 기술 혁신<br>
-                    ♿ 접근성 향상<br>
-                    🚀 지속적인 개선</p>
+                <div class="about-visual">
+                    <h4>핵심 가치</h4>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <span>🎯</span>
+                            <p>사용자 중심 설계</p>
+                        </div>
+                        <div class="value-item">
+                            <span>🔧</span>
+                            <p>기술 혁신</p>
+                        </div>
+                        <div class="value-item">
+                            <span>♿</span>
+                            <p>접근성 향상</p>
+                        </div>
+                        <div class="value-item">
+                            <span>🚀</span>
+                            <p>지속적인 개선</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -284,20 +772,23 @@
 
     <section id="services" class="section">
         <div class="container">
-            <h2 class="section-title">주요 서비스</h2>
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">📱</div>
+            <div class="section-header">
+                <h2 class="section-title">주요 서비스</h2>
+                <p class="section-subtitle">전문적이고 혁신적인 모바일 솔루션을 제공합니다</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
                     <h3>iOS 앱 개발</h3>
                     <p>Swift, SwiftUI, UIKit을 활용한 네이티브 iOS 애플리케이션 개발. 사용자 경험을 최우선으로 하는 직관적이고 성능 최적화된 앱을 제작합니다.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🤖</div>
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
                     <h3>AI 통합 솔루션</h3>
                     <p>인공지능 기술을 모바일 애플리케이션에 통합하여 스마트한 사용자 경험을 제공합니다. 음성 인식, 이미지 처리 등 다양한 AI 기능을 구현합니다.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">♿</div>
+                <div class="service-card">
+                    <div class="service-icon">♿</div>
                     <h3>접근성 서비스</h3>
                     <p>시각장애인과 같은 특수 사용자를 위한 접근성 향상 서비스를 개발합니다. 모든 사용자가 기술의 혜택을 누릴 수 있도록 지원합니다.</p>
                 </div>
@@ -305,40 +796,53 @@
         </div>
     </section>
 
-    <section id="projects" class="section projects">
+    <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title">주요 프로젝트</h2>
-            
-            <div class="project-card">
-                <h3 class="project-title">🔍 LuminaView</h3>
-                <p>시각장애인을 위한 AI 기반 음성 안내 서비스입니다. 실시간 객체 인식과 텍스트 인식 기능을 통해 시각장애인의 일상생활을 돕는 혁신적인 접근성 솔루션입니다.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Swift</span>
-                    <span class="tech-tag">Core ML</span>
-                    <span class="tech-tag">Vision Framework</span>
-                    <span class="tech-tag">AVFoundation</span>
-                </div>
+            <div class="section-header">
+                <h2 class="section-title">주요 프로젝트</h2>
+                <p class="section-subtitle">혁신적인 기술로 만든 실제 프로젝트들을 소개합니다</p>
             </div>
-            
-            <div class="project-card">
-                <h3 class="project-title">💬 오테톡 (Ototalk)</h3>
-                <p>실제 외주 프로젝트로 진행된 커뮤니케이션 앱입니다. 사용자 친화적인 인터페이스와 실시간 메시징 기능을 구현하여 원활한 소통을 지원하는 모바일 메신저 애플리케이션입니다.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Swift</span>
-                    <span class="tech-tag">UIKit</span>
-                    <span class="tech-tag">Firebase</span>
-                    <span class="tech-tag">Real-time DB</span>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🔍</div>
+                        <h3 class="project-title">LuminaView</h3>
+                    </div>
+                    <p class="project-description">시각장애인을 위한 AI 기반 음성 안내 서비스입니다. 실시간 객체 인식과 텍스트 인식 기능을 통해 시각장애인의 일상생활을 돕는 혁신적인 접근성 솔루션입니다.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Swift</span>
+                        <span class="tech-tag">Core ML</span>
+                        <span class="tech-tag">Vision Framework</span>
+                        <span class="tech-tag">AVFoundation</span>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="project-card">
-                <h3 class="project-title">💼 무선/유선 과금 시스템</h3>
-                <p>세종텔레콤에서 개발한 통신 과금 처리 시스템입니다. 고객 정보 조회 성능을 개선하고 이름 변경 처리 자동화를 구현하여 업무 효율성을 크게 향상시켰습니다.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Java</span>
-                    <span class="tech-tag">Spring</span>
-                    <span class="tech-tag">Oracle</span>
-                    <span class="tech-tag">RESTful API</span>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">💬</div>
+                        <h3 class="project-title">오테톡 (Ototalk)</h3>
+                    </div>
+                    <p class="project-description">실제 외주 프로젝트로 진행된 커뮤니케이션 앱입니다. 사용자 친화적인 인터페이스와 실시간 메시징 기능을 구현하여 원활한 소통을 지원하는 모바일 메신저 애플리케이션입니다.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Swift</span>
+                        <span class="tech-tag">UIKit</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Real-time DB</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">💼</div>
+                        <h3 class="project-title">무선/유선 과금 시스템</h3>
+                    </div>
+                    <p class="project-description">세종텔레콤에서 개발한 통신 과금 처리 시스템입니다. 고객 정보 조회 성능을 개선하고 이름 변경 처리 자동화를 구현하여 업무 효율성을 크게 향상시켰습니다.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring</span>
+                        <span class="tech-tag">Oracle</span>
+                        <span class="tech-tag">RESTful API</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -346,21 +850,25 @@
 
     <section id="contact" class="section contact">
         <div class="container">
-            <h2 class="section-title">연락처</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">프로젝트 문의나 협업 제안을 환영합니다!</p>
-            
-            <div class="contact-info">
-                <div>
-                    <h3>📧 이메일</h3>
-                    <p>tjdwns6481@naver.com</p>
+            <div class="contact-content">
+                <div class="section-header">
+                    <h2 class="section-title">연락처</h2>
+                    <p class="section-subtitle">프로젝트 문의나 협업 제안을 환영합니다!</p>
                 </div>
-                <div>
-                    <h3>🌐 블로그</h3>
-                    <p><a href="https://jjunbbang.tistory.com" style="color: #667eea;">jjunbbang.tistory.com</a></p>
-                </div>
-                <div>
-                    <h3>💻 GitHub</h3>
-                    <p><a href="https://github.com/ksj0109188" style="color: #667eea;">github.com/ksj0109188</a></p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📧 이메일</h3>
+                        <a href="mailto:tjdwns6481@naver.com">tjdwns6481@naver.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>🌐 블로그</h3>
+                        <a href="https://jjunbbang.tistory.com" target="_blank">jjunbbang.tistory.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>💻 GitHub</h3>
+                        <a href="https://github.com/ksj0109188" target="_blank">github.com/ksj0109188</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -374,38 +882,124 @@
     </footer>
 
     <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
 
-        // Add animation on scroll
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('fade-in');
                 }
             });
         }, observerOptions);
 
-        // Observe all sections
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
+        // Observe all sections and cards
+        document.querySelectorAll('.section, .service-card, .project-card').forEach(el => {
+            observer.observe(el);
         });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            // Mobile menu functionality would go here
+            console.log('Mobile menu clicked');
+        });
+
+        // Add loading animation to elements
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.service-card, .project-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 150);
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add hover effect to tech tags
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
+            }, 16);
+        }
+
+        // Trigger counter animations when hero stats come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        if (text.includes('+')) {
+                            const num = parseInt(text);
+                            animateCounter(stat, num);
+                        } else if (text.includes('%')) {
+                            animateCounter(stat, 100);
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) {
+            statsObserver.observe(heroStats);
+        }
     </script>
 </body>
 </html>
